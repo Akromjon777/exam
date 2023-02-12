@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const multer_1 = __importDefault(require("../../lib/multer"));
+const validate_middleware_1 = __importDefault(require("../../middleware/validate.middleware"));
+const validation_1 = require("../../validation/validation");
+const products_1 = require("./products");
+const router = (0, express_1.Router)();
+router.get("/products/get", products_1.PRODUCTS_GET);
+router.get("/products/get/:id", products_1.PRODUCTS_GET_ONE);
+router.get("/lewer/product/get/:id", products_1.PRODUCTS_GET_ID);
+router.get("/products/cheap/ones", products_1.CHEAP_ONES);
+router.get("/products/time", products_1.PRODUCTS_TIME);
+router.get("/products/reyting", products_1.PRODUCTS_REYTING);
+router.post("/products/post", multer_1.default.single("img"), (0, validate_middleware_1.default)(validation_1.products_joi), products_1.PRODUCTS_POST);
+router.patch("/products/patch/:id", (0, validate_middleware_1.default)(validation_1.products_joi), products_1.PRODUCTS_PATCH);
+router.delete("/products/delete/:id", products_1.PRODUCTS_DELETE);
+exports.default = router;
